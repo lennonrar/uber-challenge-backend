@@ -2,13 +2,13 @@ from enum import Enum
 from pydantic import BaseModel
 
 
-class UserModel(str, Enum):
+class UserModelEnum(str, Enum):
     alexnet = "alexnet"
     resnet = "resnet"
     lenet = "lenet"
 
 
-class UserModelPost(BaseModel):
+class UserModel(BaseModel):
     name: str
     description: str | None = None
     email: str
@@ -18,5 +18,5 @@ class UserModelPost(BaseModel):
     is_superuser: bool = False
 
 
-class UserModelPut(UserModelPost):
+class UserModelUpdate(UserModel):
     user_id: int
