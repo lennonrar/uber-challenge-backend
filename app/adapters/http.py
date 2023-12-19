@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException, status
-from app.core.use_cases.create_update_user import create_user_use_case, update_user_use_case
+from app.core.use_cases.create_update_user import (create_user_use_case,
+                                                   update_user_use_case)
 
 
 app = FastAPI()
+
 
 @app.post("/users/", status_code=status.HTTP_201_CREATED)
 def create_user_route(username: str, email: str):
@@ -46,4 +48,5 @@ def update_user_route(user_id: int, user_data: dict):
         user = update_user_use_case(user_id, user_data)
         return {"user": user}
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
+                            detail=str(e))
