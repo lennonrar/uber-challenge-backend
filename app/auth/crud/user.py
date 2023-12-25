@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
 from app.auth import models, schemas
+from app.auth.core import token
 
 
-def get_user(db: Session, user_id: int):
+def get_user_by_id(db: Session, user_id: int):
     return db.query(models.Users).filter(models.Users.id == user_id).first()
 
 
@@ -15,7 +16,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: schemas.UserCreate):
-    user.password = user.password + "notreallyhashed"
+    user.password = token.get_password_hash(user.password)
     db_user = models.Users(name=user.name, 
                            email=user.email, 
                            password=user.password)
