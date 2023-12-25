@@ -1,9 +1,21 @@
 from typing import Dict
 
-from app.core.modules.user import UserModel, create_update_user
+from app.auth.models.user import UserBase
+
+from app.auth.schemas.user import Users
+from sqlmodel import select
 
 
-def create_user_use_case(username: str, email: str) -> UserModel:
+def get_users_use_case(session, skip: int = 0, limit: int = 10):
+    """
+    Retrieve users.
+    """
+    statement = select(Users).offset(skip).limit(limit)
+    users = session.exec(statement).all()
+    return users
+
+
+def create_user_use_case(username: str, email: str) -> UserBase:
     """
     Create a new user.
 
@@ -23,11 +35,11 @@ def create_user_use_case(username: str, email: str) -> UserModel:
         'email': email
     }
 
-    return create_update_user(user_data)
+    return create_update_user(user_data) # TODO call core
 
 
 def update_user_use_case(user_id: int,
-                         update_data: Dict[str, str]) -> UserModel:
+                         update_data: Dict[str, str]) -> UserBase:
     """
     Update an existing user.
 
@@ -43,5 +55,5 @@ def update_user_use_case(user_id: int,
         raise ValueError("User ID and update data are required")
 
     update_data['id'] = user_id
-
-    return create_update_user(update_data)
+ 
+    return create_update_user(update_data) # TODO call core
