@@ -1,0 +1,28 @@
+# User Management API
+
+This is a simple API for managing users. It's built with FastAPI and provides endpoints for creating and updating users.
+
+## Installation
+
+1. Clone this repository.
+2. Navigate to the project directory.
+3. Create a virtual environment with `python3 -m venv env`.
+4. Activate the virtual environment with `source env/bin/activate` (on Unix or MacOS) or `.\env\Scripts\activate` (on Windows).
+5. Install the dependencies with `poetry install`.
+
+## Usage
+
+Run the server with `uvicorn main:app --reload`.
+
+### Endpoints
+
+- `POST /users/`: Create a new user. The body of the request should be a JSON object with `username` and `email` fields.
+- `PUT /users/{user_id}`: Update an existing user. The body of the request should be a JSON object with the fields to update.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
